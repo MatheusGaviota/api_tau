@@ -6,6 +6,7 @@ class Horario(Base):
     __tablename__ = "horarios"
 
     id = Column(Integer, primary_key=True, index=True)
+    usuario_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     disciplina_id = Column(Integer, ForeignKey("disciplinas.id"), nullable=False)
     hora_comeco = Column(Time, nullable=False)
     hora_fim = Column(Time, nullable=False)

@@ -18,8 +18,11 @@ def criar_disciplina(disciplina: disciplina_schema.DisciplinaCreate, db: Session
 
 
 @router.get("", response_model=List[disciplina_schema.Disciplina])
-def listar_disciplinas(db: Session = Depends(get_db)):
-    return db.query(disciplina_model.Disciplina).all()
+def listar_disciplinas(usuario_id: int = None, db: Session = Depends(get_db)):
+    query = db.query(disciplina_model.Disciplina)
+    if usuario_id is not None:
+        query = query.filter(disciplina_model.Disciplina.usuario_id == usuario_id)
+    return query.all()
 
 
 @router.get("/{disciplina_id}", response_model=disciplina_schema.Disciplina)

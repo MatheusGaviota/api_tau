@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class TarefaBase(BaseModel):
+    usuario_id: int
     titulo: str
     descricao: str
     status: bool

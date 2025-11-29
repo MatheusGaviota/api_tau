@@ -20,6 +20,7 @@ def criar_tarefa(tarefa: tarefa_schema.TarefaCreate, db: Session = Depends(get_d
 
 @router.get("", response_model=List[tarefa_schema.Tarefa])
 def listar_tarefas(
+    usuario_id: Optional[int] = Query(None),
     disciplina_id: Optional[int] = Query(None),
     status: Optional[bool] = Query(None),
     data_inicio: Optional[datetime] = Query(None),
@@ -27,6 +28,9 @@ def listar_tarefas(
     db: Session = Depends(get_db)
 ):
     query = db.query(tarefa_model.Tarefa)
+    
+    if usuario_id is not None:
+        query = query.filter(tarefa_model.Tarefa.usuario_id == usuario_id)
     
     if disciplina_id is not None:
         query = query.filter(tarefa_model.Tarefa.disciplina_id == disciplina_id)

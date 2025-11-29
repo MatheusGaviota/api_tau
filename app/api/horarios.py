@@ -19,11 +19,15 @@ def criar_horario(horario: horario_schema.HorarioCreate, db: Session = Depends(g
 
 @router.get("", response_model=List[horario_schema.Horario])
 def listar_horarios(
+    usuario_id: Optional[int] = Query(None),
     disciplina_id: Optional[int] = Query(None),
     dia_semana: Optional[int] = Query(None, ge=0, le=6),
     db: Session = Depends(get_db)
 ):
     query = db.query(horario_model.Horario)
+    
+    if usuario_id is not None:
+        query = query.filter(horario_model.Horario.usuario_id == usuario_id)
     
     if disciplina_id is not None:
         query = query.filter(horario_model.Horario.disciplina_id == disciplina_id)

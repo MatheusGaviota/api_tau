@@ -20,11 +20,15 @@ def criar_anotacao(anotacao: anotacao_schema.AnotacaoCreate, db: Session = Depen
 
 @router.get("", response_model=List[anotacao_schema.Anotacao])
 def listar_anotacoes(
+    usuario_id: Optional[int] = Query(None),
     data_inicio: Optional[datetime] = Query(None),
     data_fim: Optional[datetime] = Query(None),
     db: Session = Depends(get_db)
 ):
     query = db.query(anotacao_model.Anotacao)
+    
+    if usuario_id is not None:
+        query = query.filter(anotacao_model.Anotacao.usuario_id == usuario_id)
     
     if data_inicio is not None:
         query = query.filter(anotacao_model.Anotacao.data_criacao >= data_inicio)

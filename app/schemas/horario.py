@@ -3,6 +3,7 @@ from datetime import time
 
 
 class HorarioBase(BaseModel):
+    usuario_id: int
     disciplina_id: int
     hora_comeco: time
     hora_fim: time

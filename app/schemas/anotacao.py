@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class AnotacaoBase(BaseModel):
+    usuario_id: int
     titulo: str
     conteudo: str
 

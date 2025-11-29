@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 
 class DisciplinaBase(BaseModel):
+    usuario_id: int
     nome: str
     professor: str
     sala: str

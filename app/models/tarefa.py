@@ -6,6 +6,7 @@ class Tarefa(Base):
     __tablename__ = "tarefas"
 
     id = Column(Integer, primary_key=True, index=True)
+    usuario_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     titulo = Column(String, nullable=False)
     descricao = Column(String, nullable=False)
     status = Column(Boolean, default=False)
