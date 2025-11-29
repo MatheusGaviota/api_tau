@@ -55,3 +55,13 @@ def deletar_usuario(usuario_id: int, db: Session = Depends(get_db)):
     db.delete(db_usuario)
     db.commit()
     return {"message": "Usuário deletado"}
+
+
+@router.post("/login", response_model=usuario_schema.Usuario)
+def login(usuario: usuario_schema.UsuarioLogin, db: Session = Depends(get_db)):
+    db_usuario = db.query(usuario_model.Usuario).filter(usuario_model.Usuario.email == usuario.email).first()
+    if not db_usuario:
+        raise HTTPException(status_code=401, detail="Email ou senha incorretos")
+    if not bcrypt.checkpw(usuario.senha.encode(), db_usuario.senha.encode()):
+        raise HTTPException(status_code=401, detail="Email ou senha incorretos")
+    return db_usuario
