@@ -5,6 +5,7 @@ class DisciplinaBase(BaseModel):
     nome: str
     professor: str
     sala: str
+    cores: str
 
 
 class DisciplinaCreate(DisciplinaBase):

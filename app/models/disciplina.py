@@ -9,3 +9,4 @@ class Disciplina(Base):
     nome = Column(String, nullable=False)
     professor = Column(String, nullable=False)
     sala = Column(String, nullable=False)
+    cores = Column(String, nullable=False)
